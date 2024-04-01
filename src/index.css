@@ -1,13 +1,144 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Rubik+Bubbles&family=Rubik+Glitch+Pop&family=Rubik+Scribble&display=swap');
+
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.name-heading {
+  font-size: 3rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px 30px;
+  margin: 30px 0;
+}
+
+.login {
+  max-width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+.button>* {
+  margin: 0 20px;
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.image-front,
+.image-back {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  box-shadow: -6px 6px 20px #ccc;
+}
+
+.image-back {
+  background: rgb(232, 232, 232);
+  background: radial-gradient(circle, rgba(232, 232, 232, 1) 0%, rgba(179, 179, 179, 1) 100%);
+}
+
+.image-front {
+  background: url('https://w0.peakpx.com/wallpaper/121/37/HD-wallpaper-grass-view-background-anime.jpg') center center no-repeat;
+}
+
+.image-front.error {
+  background: rgb(251, 251, 251);
+  background: radial-gradient(circle, rgba(251, 251, 251, 1) 0%, rgba(252, 38, 38, 1) 100%);
+}
+
+.card .front {
+  transform: rotateY(90deg);
+  position: absolute;
+  transition: all ease-in .2s;
+}
+
+.flipped .front {
+  transform: rotateY(0deg);
+  transition-delay: .2s;
+}
+
+.card .back {
+  transition: all ease-in .2s;
+  transition-delay: .2s;
+}
+
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
+
+.result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .4);
+}
+
+.win {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Rubik Scribble", system-ui;
+  font-weight: 700;
+  font-style: normal;
+  color: aqua;
+  font-size: 8rem;
+  animation: identifier .5s ease-in;
+  transition: all .5s ease-out;
+}
+
+.button-win {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: identifier .5s ease-out;
+}
+
+@keyframes identifier {
+  from {
+    transform: translate(-50%, -50%) scale(0)
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1)
+  }
 }

@@ -1,25 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Navigate, Route, Routes } from "react-router-dom";
+import Login from "./components/login/Login";
+import Start from "./components/start/Start";
 
-function App() {
+const App: React.FC = (): React.ReactElement => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path='/start' element={<Start />} />
+        <Route path="/" element={<Navigate to='/login' />} />
+        <Route path="*" element={<Navigate to='/login' />} />
+      </Routes>
+    </>
   );
 }
 
