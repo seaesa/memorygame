@@ -65,15 +65,14 @@ const Start: React.FC = () => {
     setDisabled(false)
   }
 
-
-  const handleRedirect = (): void => {
+  const handleRedirect = useCallback((): void => {
     shuffeCards();
     navigate('/login');
-  }
+  }, [navigate, shuffeCards])
 
-  const handleNextLevel = (): void => {
+  const handleNextLevel = useCallback((): void => {
     setLevel(`level=${(Number(level.get('level')) + 1).toString()}`)
-  }
+  }, [level, setLevel])
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
@@ -88,9 +87,7 @@ const Start: React.FC = () => {
   }, [choiceOne, choiceTwo]);
 
   useEffect(() => {
-    if (cards.every(card => card.matched === true)) {
-      disabled || setView('win')
-    }
+    if (cards.every(card => card.matched === true)) disabled || setView('win')
   }, [turns, cards, disabled])
 
   useEffect(() => {
@@ -98,7 +95,7 @@ const Start: React.FC = () => {
     shuffeCards()
   }, [level, setLevel, shuffeCards])
 
-  useEffect((): void => {
+  useEffect(() => {
     name || navigate('/login')
   }, [name, navigate])
 
@@ -106,13 +103,11 @@ const Start: React.FC = () => {
     let timeOut: any
     if (time > 0)
       timeOut = setTimeout(() => {
-        setTime(t => t - 1)
+        view === null && setTime((t) => t - 1)
       }, 1000)
-    if (time <= 0) {
-      setView('lose')
-    }
+    else if (time <= 0) view !== 'win' && setView('lose')
     return () => clearTimeout(timeOut)
-  }, [time])
+  }, [time, view])
   return (
     <>
       {name &&
@@ -120,8 +115,12 @@ const Start: React.FC = () => {
           <h1 className="name-heading">Hi {name}</h1>
           <div className="button">
             <span style={{ fontSize: '2rem', margin: '0 40px' }}>time: {time}</span>
-            <Button type="primary" size="large" onClick={shuffeCards}>Restart</Button>
-            <Button type="primary" size="large" onClick={handleRedirect}>Login</Button>
+            <Button
+              onClick={shuffeCards}
+              type="primary" size="large">Restart</Button>
+            <Button
+              onClick={handleRedirect}
+              type="primary" size="large">Login</Button>
             <span style={{ fontSize: '2rem', margin: '0 40px' }}>fliped: {turns}</span>
           </div>
           <div className="card-grid">

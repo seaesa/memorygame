@@ -1,4 +1,5 @@
 import { Button } from "antd"
+import { memo } from "react"
 interface WinTypes {
   handleRestart: () => void,
   handleReset: () => void,
@@ -24,4 +25,4 @@ const Success: React.FC<WinTypes> = ({ handleRestart, handleReset, handleNextLev
     </>
   )
 }
-export default Success
+export default memo(Success)

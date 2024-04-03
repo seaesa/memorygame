@@ -1,4 +1,5 @@
 import { Button } from "antd"
+import { memo } from "react"
 interface LoseTypes {
   handleRestart: () => void,
   handleReset: () => void
@@ -20,4 +21,4 @@ const Lose: React.FC<LoseTypes> = ({ handleRestart, handleReset }) => {
     </>
   )
 }
-export default Lose
+export default memo(Lose)

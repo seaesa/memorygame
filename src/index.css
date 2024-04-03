@@ -104,7 +104,7 @@
 
 .overlay {
   position: fixed;
-  top: 0;
+  top: -200px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -127,7 +127,7 @@
 
 .button-win {
   position: absolute;
-  top: 80%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: identifier .5s ease-out;
