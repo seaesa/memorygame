@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/login/Login";
 import Start from "./components/start/Start";
 
-const App: React.FC = (): React.ReactElement => {
+const App: React.FC = (): JSX.Element => {
   return (
     <>
       <Routes>

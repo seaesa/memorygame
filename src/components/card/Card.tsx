@@ -15,10 +15,10 @@ const Card: React.FC<ParentCardTypes> = ({
     <>
       <div className="card" key={card.id}>
         <div className={`layout ${flipped ? 'flipped' : ''}`}>
-          <img src={card.src} className={`front image-front`} />
+          <img src={card.src} className={`front image-front`} alt='' />
           <img
             onClick={() => !disabled && handleChoice(card)}
-            src={Ball} className="back image-back" />
+            src={Ball} className="back image-back" alt='' />
         </div>
       </div>
     </>

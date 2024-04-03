@@ -1,5 +1,5 @@
 import Card from "../card/Card";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import pokemon1 from '../../assets/images/1.png'
 import pokemon2 from '../../assets/images/2.png'
 import pokemon3 from '../../assets/images/3.png'
@@ -42,7 +42,7 @@ const Start: React.FC = () => {
   const [view, setView] = useState<'win' | 'lose' | null>(null)
   const [time, setTime] = useState<number>(0)
   // shuffle cards
-  const shuffeCards = (): void => {
+  const shuffeCards = useCallback((): void => {
     const shuffeCards = cardImage.slice(0, Number(level.get('level')));
     const card = [...shuffeCards, ...shuffeCards]
       .sort(() => Math.random() - 0.5)
@@ -53,7 +53,7 @@ const Start: React.FC = () => {
     setTime(10 * Number(level.get('level')))
     setView(null);
     setTurns(0);
-  }
+  }, [level])
   const handleChoice = (card: CardInfo): void => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
@@ -91,16 +91,16 @@ const Start: React.FC = () => {
     if (cards.every(card => card.matched === true)) {
       disabled || setView('win')
     }
-  }, [turns])
+  }, [turns, cards, disabled])
 
   useEffect(() => {
     setLevel(`level=${level.get('level')?.toString()}`);
     shuffeCards()
-  }, [level])
+  }, [level, setLevel, shuffeCards])
 
   useEffect((): void => {
     name || navigate('/login')
-  }, [])
+  }, [name, navigate])
 
   useEffect(() => {
     let timeOut: any
