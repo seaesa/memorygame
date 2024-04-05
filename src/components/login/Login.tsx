@@ -1,7 +1,6 @@
-import { memo } from "react"
 import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../../context/context";
-import { App, Input } from "antd";
+import { App, Form, Input } from "antd";
 import { SearchProps } from "antd/es/input";
 import { contextTypes } from "../../types/interface";
 
@@ -25,14 +24,18 @@ const Login: React.FC = (): JSX.Element => {
     <>
       <main>
         <div className="login">
-          <Input.Search
-            onSearch={handleStartGame}
-            onChange={(e: React.ChangeEvent) => setName((e.target as HTMLInputElement).value)}
-            value={name}
-            enterButton='Submit' placeholder="username" />
+          <Form>
+            <Form.Item name='input' rules={[{ required: true, whitespace: true }]}>
+              <Input.Search
+                onSearch={handleStartGame}
+                onChange={(e: React.ChangeEvent) => setName((e.target as HTMLInputElement).value)}
+                value={name}
+                enterButton='Submit' placeholder="username" name="search" />
+            </Form.Item>
+          </Form>
         </div>
       </main>
     </>
   )
 }
-export default memo(Login)
+export default Login

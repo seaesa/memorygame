@@ -10,6 +10,16 @@ import pokemon7 from '../../assets/images/7.png'
 import pokemon8 from '../../assets/images/8.png'
 import pokemon9 from '../../assets/images/9.png'
 import pokemon10 from '../../assets/images/10.png'
+import pokemon11 from '../../assets/images/11.png'
+import pokemon12 from '../../assets/images/12.png'
+import pokemon13 from '../../assets/images/13.png'
+import pokemon14 from '../../assets/images/14.png'
+import pokemon15 from '../../assets/images/15.png'
+import pokemon16 from '../../assets/images/16.png'
+import pokemon17 from '../../assets/images/17.png'
+import pokemon18 from '../../assets/images/18.png'
+import pokemon19 from '../../assets/images/19.png'
+import pokemon20 from '../../assets/images/20.png'
 import { useGlobal } from "../../context/context";
 import { Button } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -28,8 +38,18 @@ const cardImage = [
   { src: pokemon8, matched: false },
   { src: pokemon9, matched: false },
   { src: pokemon10, matched: false },
+  { src: pokemon11, matched: false },
+  { src: pokemon12, matched: false },
+  { src: pokemon13, matched: false },
+  { src: pokemon14, matched: false },
+  { src: pokemon15, matched: false },
+  { src: pokemon16, matched: false },
+  { src: pokemon17, matched: false },
+  { src: pokemon18, matched: false },
+  { src: pokemon19, matched: false },
+  { src: pokemon20, matched: false },
 ]
-const Start: React.FC = () => {
+const Start: React.FC = (): JSX.Element => {
   const [level, setLevel] = useSearchParams('level=1')
 
   const navigate = useNavigate()
@@ -40,10 +60,11 @@ const Start: React.FC = () => {
   const [choiceTwo, setChoiceTwo] = useState<CardInfo | null>(null)
   const [disabled, setDisabled] = useState<boolean>(false)
   const [view, setView] = useState<'win' | 'lose' | null>(null)
-  const [time, setTime] = useState<number>(0)
+  const [time, setTime] = useState<number>(0);
+
   // shuffle cards
   const shuffeCards = useCallback((): void => {
-    const shuffeCards = cardImage.slice(0, Number(level.get('level')));
+    const shuffeCards = cardImage.sort(() => Math.random() - 0.5).slice(0, Number(level.get('level')));
     const card = [...shuffeCards, ...shuffeCards]
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
@@ -54,6 +75,7 @@ const Start: React.FC = () => {
     setView(null);
     setTurns(0);
   }, [level])
+
   const handleChoice = (card: CardInfo): void => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
@@ -66,9 +88,8 @@ const Start: React.FC = () => {
   }
 
   const handleRedirect = useCallback((): void => {
-    shuffeCards();
     navigate('/login');
-  }, [navigate, shuffeCards])
+  }, [navigate])
 
   const handleNextLevel = useCallback((): void => {
     setLevel(`level=${(Number(level.get('level')) + 1).toString()}`)
@@ -87,7 +108,8 @@ const Start: React.FC = () => {
   }, [choiceOne, choiceTwo]);
 
   useEffect(() => {
-    if (cards.every(card => card.matched === true)) disabled || setView('win')
+    const matched = cards.every(card => card.matched === true)
+    if (matched) disabled || setView('win')
   }, [turns, cards, disabled])
 
   useEffect(() => {
@@ -100,12 +122,12 @@ const Start: React.FC = () => {
   }, [name, navigate])
 
   useEffect(() => {
-    let timeOut: any
+    let timeOut: ReturnType<typeof setTimeout>
     if (time > 0)
       timeOut = setTimeout(() => {
         view === null && setTime((t) => t - 1)
       }, 1000)
-    else if (time <= 0) view !== 'win' && setView('lose')
+    else if (time <= 0 && view !== 'win') setView('lose')
     return () => clearTimeout(timeOut)
   }, [time, view])
   return (
