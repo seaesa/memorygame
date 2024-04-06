@@ -76,9 +76,9 @@ const Start: React.FC = (): JSX.Element => {
     setTurns(0);
   }, [level])
 
-  const handleChoice = (card: CardInfo): void => {
+  const handleChoice = useCallback((card: CardInfo) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
-  }
+  }, [choiceOne])
 
   const resetTurn = (): void => {
     setChoiceOne(null)
@@ -87,11 +87,11 @@ const Start: React.FC = (): JSX.Element => {
     setDisabled(false)
   }
 
-  const handleRedirect = useCallback((): void => {
+  const handleRedirect = useCallback(() => {
     navigate('/login');
   }, [navigate])
 
-  const handleNextLevel = useCallback((): void => {
+  const handleNextLevel = useCallback(() => {
     setLevel(`level=${(Number(level.get('level')) + 1).toString()}`)
   }, [level, setLevel])
 
